@@ -1,0 +1,3 @@
+neuralforecast==3.3.0
+vmdpy==0.2
+matplotlib

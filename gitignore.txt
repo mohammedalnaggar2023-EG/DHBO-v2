@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.venv/
+venv/
+
+# Raw data (download from the JHU CSSE repository; see README)
+data/*.csv
+
+# Caches and logs
+*/cache/
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db

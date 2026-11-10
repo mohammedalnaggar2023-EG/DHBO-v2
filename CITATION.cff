@@ -1,0 +1,31 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite the paper below."
+title: "DHBO-v2: Adaptive SARIMA–BiLSTM–TCN Ensemble for Short-Term Epidemic Forecasting"
+type: software
+license: MIT
+authors:
+  - family-names: Elnagar
+    given-names: Mohamad Khalil
+    affiliation: Menoufia University
+  - family-names: Taha
+    given-names: Taha E.
+    affiliation: Menoufia University
+  - family-names: Abd El-Samie
+    given-names: Fathi E.
+    affiliation: Menoufia University
+  - family-names: El-Fishawy
+    given-names: Adel S.
+    affiliation: Menoufia University
+preferred-citation:
+  type: article
+  title: "Learning When to Trust the Correction: An Adaptive SARIMA–BiLSTM–TCN Ensemble with Bayesian Tuning and Conformal Intervals for Short-Term Epidemic Forecasting"
+  authors:
+    - family-names: Elnagar
+      given-names: Mohamad Khalil
+    - family-names: Taha
+      given-names: Taha E.
+    - family-names: Abd El-Samie
+      given-names: Fathi E.
+    - family-names: El-Fishawy
+      given-names: Adel S.
+  status: submitted
