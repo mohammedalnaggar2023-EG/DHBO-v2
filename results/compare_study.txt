@@ -1,0 +1,58 @@
+daily      India        MASE v1 0.163  TCN 0.170  CNN 0.172  best base SARIMA 0.177 | rank v1/TCN/CNN 1/2/3 (of 10) | DM CNN-TCN +0.30 p=0.761 | ACI95 TCN 0.940 CNN 0.937
+daily      Brazil       MASE v1 3.816  TCN 3.299  CNN 3.317  best base Naive 3.386 | rank v1/TCN/CNN 6/1/2 (of 10) | DM CNN-TCN +2.44 p=0.015 | ACI95 TCN 0.941 CNN 0.941
+daily      Russia       MASE v1 4.052  TCN 3.550  CNN 3.658  best base ETS (damped) 3.374 | rank v1/TCN/CNN 7/4/5 (of 10) | DM CNN-TCN +1.19 p=0.235 | ACI95 TCN 0.932 CNN 0.930
+daily      USA          MASE v1 2.469  TCN 2.490  CNN 2.475  best base Naive 2.510 | rank v1/TCN/CNN 1/3/2 (of 10) | DM CNN-TCN -1.73 p=0.085 | ACI95 TCN 0.934 CNN 0.936
+cumulative India        MASE v1 0.159  TCN 0.043  CNN 0.040  best base ETS (damped) 0.040 | rank v1/TCN/CNN 7/3/2 (of 10) | DM CNN-TCN -1.28 p=0.201 | ACI95 TCN 0.978 CNN 0.981
+cumulative Brazil       MASE v1 0.797  TCN 0.829  CNN 0.776  best base SARIMA 1.217 | rank v1/TCN/CNN 2/3/1 (of 10) | DM CNN-TCN -1.58 p=0.115 | ACI95 TCN 0.964 CNN 0.970
+cumulative Russia       MASE v1 0.487  TCN 0.450  CNN 0.440  best base ARIMA-LSTM hybrid 0.418 | rank v1/TCN/CNN 4/3/2 (of 10) | DM CNN-TCN -0.50 p=0.616 | ACI95 TCN 0.937 CNN 0.929
+cumulative USA          MASE v1 0.663  TCN 0.482  CNN 0.486  best base SARIMA 0.497 | rank v1/TCN/CNN 4/1/2 (of 10) | DM CNN-TCN +1.66 p=0.099 | ACI95 TCN 0.976 CNN 0.978
+
+DHBO-v1     mean MASE daily      2.625
+DHBO-v1     mean MASE cumulative 0.526
+DHBO-v1     mean MASE all        1.576 | mean rank 4.00 | firsts 2 | sig better/worse vs 7 baselines 32/8
+BiLSTM-TCN  mean MASE daily      2.377
+BiLSTM-TCN  mean MASE cumulative 0.451
+BiLSTM-TCN  mean MASE all        1.414 | mean rank 2.50 | firsts 2 | sig better/worse vs 7 baselines 38/0
+BiLSTM-CNN  mean MASE daily      2.406
+BiLSTM-CNN  mean MASE cumulative 0.435
+BiLSTM-CNN  mean MASE all        1.421 | mean rank 2.38 | firsts 1 | sig better/worse vs 7 baselines 38/0
+best-baseline-per-series mean MASE 1.452
+   Naive              mean MASE all 3.171
+   ARIMA              mean MASE all 1.828
+   SARIMA             mean MASE all 1.891
+   ETS (damped)       mean MASE all 1.848
+   LSTM               mean MASE all 2.488
+   GRU                mean MASE all 2.105
+   ARIMA-LSTM hybrid  mean MASE all 1.816
+BiLSTM-CNN vs BiLSTM-TCN: first significantly better in 0, worse in 1, of 8
+BiLSTM-CNN vs DHBO-v1: first significantly better in 3, worse in 0, of 8
+BiLSTM-TCN vs DHBO-v1: first significantly better in 3, worse in 0, of 8
+
+## geometric-mean relative MASE (model / SARIMA), per target and overall
+daily DHBO-v1 0.847 | BiLSTM-TCN 0.800 | BiLSTM-CNN 0.809 | Naive 1.153 | ARIMA 0.934 | SARIMA 1.000 | ETS (damped) 0.909 | LSTM 0.850 | GRU 0.908 | ARIMA-LSTM hybrid 0.923
+cumulative DHBO-v1 1.166 | BiLSTM-TCN 0.767 | BiLSTM-CNN 0.739 | Naive 3.753 | ARIMA 1.274 | SARIMA 1.000 | ETS (damped) 1.387 | LSTM 4.346 | GRU 3.610 | ARIMA-LSTM hybrid 1.382
+all DHBO-v1 0.994 | BiLSTM-TCN 0.784 | BiLSTM-CNN 0.773 | Naive 2.080 | ARIMA 1.091 | SARIMA 1.000 | ETS (damped) 1.123 | LSTM 1.922 | GRU 1.811 | ARIMA-LSTM hybrid 1.130
+
+## mean rank (of 10) per target
+daily DHBO-v1 3.75 | BiLSTM-TCN 2.50 | BiLSTM-CNN 3.00 | Naive 6.75 | ARIMA 6.75 | SARIMA 7.50 | ETS (damped) 6.25 | LSTM 5.75 | GRU 7.00 | ARIMA-LSTM hybrid 5.75
+cumulative DHBO-v1 4.25 | BiLSTM-TCN 2.50 | BiLSTM-CNN 1.75 | Naive 8.50 | ARIMA 5.75 | SARIMA 4.50 | ETS (damped) 5.50 | LSTM 8.25 | GRU 8.25 | ARIMA-LSTM hybrid 5.75
+
+## pairwise DM detail per series (stat, p)
+('daily', 'India') {'BiLSTM-CNN vs BiLSTM-TCN': (0.3, 0.761), 'BiLSTM-CNN vs DHBO-v1': (1.73, 0.085), 'BiLSTM-TCN vs DHBO-v1': (0.98, 0.329)}
+('daily', 'Brazil') {'BiLSTM-CNN vs BiLSTM-TCN': (2.44, 0.015), 'BiLSTM-CNN vs DHBO-v1': (-2.74, 0.007), 'BiLSTM-TCN vs DHBO-v1': (-2.89, 0.004)}
+('daily', 'Russia') {'BiLSTM-CNN vs BiLSTM-TCN': (1.19, 0.235), 'BiLSTM-CNN vs DHBO-v1': (-1.19, 0.236), 'BiLSTM-TCN vs DHBO-v1': (-1.3, 0.196)}
+('daily', 'USA') {'BiLSTM-CNN vs BiLSTM-TCN': (-1.73, 0.085), 'BiLSTM-CNN vs DHBO-v1': (0.07, 0.945), 'BiLSTM-TCN vs DHBO-v1': (0.22, 0.826)}
+('cumulative', 'India') {'BiLSTM-CNN vs BiLSTM-TCN': (-1.28, 0.201), 'BiLSTM-CNN vs DHBO-v1': (-19.9, 0.0), 'BiLSTM-TCN vs DHBO-v1': (-17.4, 0.0)}
+('cumulative', 'Brazil') {'BiLSTM-CNN vs BiLSTM-TCN': (-1.58, 0.115), 'BiLSTM-CNN vs DHBO-v1': (-0.68, 0.5), 'BiLSTM-TCN vs DHBO-v1': (1.03, 0.303)}
+('cumulative', 'Russia') {'BiLSTM-CNN vs BiLSTM-TCN': (-0.5, 0.616), 'BiLSTM-CNN vs DHBO-v1': (-0.66, 0.51), 'BiLSTM-TCN vs DHBO-v1': (-0.51, 0.61)}
+('cumulative', 'USA') {'BiLSTM-CNN vs BiLSTM-TCN': (1.66, 0.099), 'BiLSTM-CNN vs DHBO-v1': (-3.98, 0.0), 'BiLSTM-TCN vs DHBO-v1': (-4.06, 0.0)}
+
+## ACI 95% coverage incl. v1
+('daily', 'India') v1 0.942 TCN 0.94 CNN 0.937
+('daily', 'Brazil') v1 0.943 TCN 0.941 CNN 0.941
+('daily', 'Russia') v1 0.926 TCN 0.932 CNN 0.93
+('daily', 'USA') v1 0.93 TCN 0.934 CNN 0.936
+('cumulative', 'India') v1 0.967 TCN 0.978 CNN 0.981
+('cumulative', 'Brazil') v1 0.968 TCN 0.964 CNN 0.97
+('cumulative', 'Russia') v1 0.942 TCN 0.937 CNN 0.929
+('cumulative', 'USA') v1 0.959 TCN 0.976 CNN 0.978

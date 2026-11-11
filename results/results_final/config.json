@@ -1,0 +1,23 @@
+{
+  "data": "data/confirmed_global.csv",
+  "targets": [
+    "daily",
+    "cumulative"
+  ],
+  "countries": [
+    "India",
+    "Brazil",
+    "Russia",
+    "USA"
+  ],
+  "horizon": 7,
+  "vmd_window": 128,
+  "trials": 30,
+  "baseline_trials": 15,
+  "seeds": 3,
+  "max_epochs": 200,
+  "patience": 20,
+  "out": "results_final",
+  "fast": false,
+  "note": "daily and cumulative run as two parallel jobs (DHBO_THREADS=1); VMD cache reused from the Colab run"
+}

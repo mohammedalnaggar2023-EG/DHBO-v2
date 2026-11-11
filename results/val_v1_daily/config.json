@@ -1,0 +1,21 @@
+{
+  "data": "data/confirmed_global.csv",
+  "targets": [
+    "daily"
+  ],
+  "countries": [
+    "France",
+    "Germany",
+    "Japan",
+    "South Korea"
+  ],
+  "horizon": 7,
+  "vmd_window": 128,
+  "trials": 30,
+  "baseline_trials": 15,
+  "seeds": 3,
+  "max_epochs": 200,
+  "patience": 20,
+  "out": "val_v1_daily",
+  "fast": false
+}

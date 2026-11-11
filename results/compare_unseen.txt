@@ -1,0 +1,58 @@
+daily      France       MASE v1 3.787  TCN 3.830  CNN 3.920  best base GRU 3.502 | rank v1/TCN/CNN 4/5/6 (of 10) | DM CNN-TCN +2.24 p=0.026 | ACI95 TCN 0.987 CNN 0.987
+daily      Germany      MASE v1 12.491  TCN 13.883  CNN 13.738  best base LSTM 12.881 | rank v1/TCN/CNN 1/7/5 (of 10) | DM CNN-TCN -0.42 p=0.674 | ACI95 TCN 0.953 CNN 0.952
+daily      Japan        MASE v1 71.873  TCN 74.404  CNN 71.097  best base ARIMA-LSTM hybrid 75.065 | rank v1/TCN/CNN 2/3/1 (of 10) | DM CNN-TCN -1.14 p=0.258 | ACI95 TCN 0.941 CNN 0.943
+daily      South Korea  MASE v1 162.625  TCN 177.044  CNN 181.220  best base GRU 157.282 | rank v1/TCN/CNN 3/6/8 (of 10) | DM CNN-TCN +0.45 p=0.654 | ACI95 TCN 0.944 CNN 0.948
+cumulative France       MASE v1 3.027  TCN 2.187  CNN 2.500  best base ARIMA-LSTM hybrid 2.085 | rank v1/TCN/CNN 4/2/3 (of 10) | DM CNN-TCN +2.40 p=0.017 | ACI95 TCN 1.000 CNN 1.000
+cumulative Germany      MASE v1 2.964  TCN 2.905  CNN 2.955  best base SARIMA 3.443 | rank v1/TCN/CNN 3/1/2 (of 10) | DM CNN-TCN +1.24 p=0.215 | ACI95 TCN 0.997 CNN 0.996
+cumulative Japan        MASE v1 22.738  TCN 22.741  CNN 21.784  best base SARIMA 22.422 | rank v1/TCN/CNN 3/4/1 (of 10) | DM CNN-TCN -1.14 p=0.254 | ACI95 TCN 0.961 CNN 0.959
+cumulative South Korea  MASE v1 96.465  TCN 93.940  CNN 106.170  best base ARIMA-LSTM hybrid 57.486 | rank v1/TCN/CNN 3/2/4 (of 10) | DM CNN-TCN +1.19 p=0.234 | ACI95 TCN 0.993 CNN 0.999
+
+DHBO-v1     mean MASE daily      62.694
+DHBO-v1     mean MASE cumulative 31.298
+DHBO-v1     mean MASE all        46.996 | mean rank 2.88 | firsts 1 | sig better/worse vs 7 baselines 32/2
+BiLSTM-TCN  mean MASE daily      67.290
+BiLSTM-TCN  mean MASE cumulative 30.443
+BiLSTM-TCN  mean MASE all        48.867 | mean rank 3.75 | firsts 1 | sig better/worse vs 7 baselines 30/1
+BiLSTM-CNN  mean MASE daily      67.494
+BiLSTM-CNN  mean MASE cumulative 33.352
+BiLSTM-CNN  mean MASE all        50.423 | mean rank 3.75 | firsts 2 | sig better/worse vs 7 baselines 29/1
+best-baseline-per-series mean MASE 41.771
+   Naive              mean MASE all 92.982
+   ARIMA              mean MASE all 61.504
+   SARIMA             mean MASE all 88.714
+   ETS (damped)       mean MASE all 54.685
+   LSTM               mean MASE all 64.577
+   GRU                mean MASE all 65.949
+   ARIMA-LSTM hybrid  mean MASE all 44.850
+BiLSTM-CNN vs BiLSTM-TCN: first significantly better in 0, worse in 2, of 8
+BiLSTM-CNN vs DHBO-v1: first significantly better in 1, worse in 0, of 8
+BiLSTM-TCN vs DHBO-v1: first significantly better in 1, worse in 0, of 8
+
+## geometric-mean relative MASE (model / SARIMA), per target and overall
+daily DHBO-v1 0.842 | BiLSTM-TCN 0.893 | BiLSTM-CNN 0.891 | Naive 1.113 | ARIMA 0.970 | SARIMA 1.000 | ETS (damped) 0.931 | LSTM 0.882 | GRU 0.884 | ARIMA-LSTM hybrid 0.894
+cumulative DHBO-v1 0.676 | BiLSTM-TCN 0.616 | BiLSTM-CNN 0.652 | Naive 2.468 | ARIMA 1.038 | SARIMA 1.000 | ETS (damped) 0.958 | LSTM 1.643 | GRU 1.663 | ARIMA-LSTM hybrid 0.621
+all DHBO-v1 0.754 | BiLSTM-TCN 0.742 | BiLSTM-CNN 0.762 | Naive 1.658 | ARIMA 1.004 | SARIMA 1.000 | ETS (damped) 0.945 | LSTM 1.204 | GRU 1.213 | ARIMA-LSTM hybrid 0.745
+
+## mean rank (of 10) per target
+daily DHBO-v1 2.50 | BiLSTM-TCN 5.25 | BiLSTM-CNN 5.00 | Naive 9.25 | ARIMA 6.50 | SARIMA 8.50 | ETS (damped) 4.75 | LSTM 4.00 | GRU 4.00 | ARIMA-LSTM hybrid 5.25
+cumulative DHBO-v1 3.25 | BiLSTM-TCN 2.25 | BiLSTM-CNN 2.50 | Naive 9.75 | ARIMA 6.50 | SARIMA 5.50 | ETS (damped) 6.25 | LSTM 7.75 | GRU 8.25 | ARIMA-LSTM hybrid 3.00
+
+## pairwise DM detail per series (stat, p)
+('daily', 'France') {'BiLSTM-CNN vs BiLSTM-TCN': (2.24, 0.026), 'BiLSTM-CNN vs DHBO-v1': (0.49, 0.623), 'BiLSTM-TCN vs DHBO-v1': (0.16, 0.875)}
+('daily', 'Germany') {'BiLSTM-CNN vs BiLSTM-TCN': (-0.42, 0.674), 'BiLSTM-CNN vs DHBO-v1': (1.69, 0.092), 'BiLSTM-TCN vs DHBO-v1': (1.58, 0.116)}
+('daily', 'Japan') {'BiLSTM-CNN vs BiLSTM-TCN': (-1.14, 0.258), 'BiLSTM-CNN vs DHBO-v1': (-0.2, 0.841), 'BiLSTM-TCN vs DHBO-v1': (0.52, 0.606)}
+('daily', 'South Korea') {'BiLSTM-CNN vs BiLSTM-TCN': (0.45, 0.654), 'BiLSTM-CNN vs DHBO-v1': (1.26, 0.209), 'BiLSTM-TCN vs DHBO-v1': (1.73, 0.085)}
+('cumulative', 'France') {'BiLSTM-CNN vs BiLSTM-TCN': (2.4, 0.017), 'BiLSTM-CNN vs DHBO-v1': (-2.44, 0.015), 'BiLSTM-TCN vs DHBO-v1': (-2.63, 0.009)}
+('cumulative', 'Germany') {'BiLSTM-CNN vs BiLSTM-TCN': (1.24, 0.215), 'BiLSTM-CNN vs DHBO-v1': (-0.04, 0.97), 'BiLSTM-TCN vs DHBO-v1': (-0.26, 0.792)}
+('cumulative', 'Japan') {'BiLSTM-CNN vs BiLSTM-TCN': (-1.14, 0.254), 'BiLSTM-CNN vs DHBO-v1': (-0.44, 0.66), 'BiLSTM-TCN vs DHBO-v1': (0.0, 0.999)}
+('cumulative', 'South Korea') {'BiLSTM-CNN vs BiLSTM-TCN': (1.19, 0.234), 'BiLSTM-CNN vs DHBO-v1': (0.48, 0.631), 'BiLSTM-TCN vs DHBO-v1': (-0.21, 0.838)}
+
+## ACI 95% coverage incl. v1
+('daily', 'France') v1 0.983 TCN 0.987 CNN 0.987
+('daily', 'Germany') v1 0.949 TCN 0.953 CNN 0.952
+('daily', 'Japan') v1 0.944 TCN 0.941 CNN 0.943
+('daily', 'South Korea') v1 0.944 TCN 0.944 CNN 0.948
+('cumulative', 'France') v1 1.0 TCN 1.0 CNN 1.0
+('cumulative', 'Germany') v1 0.995 TCN 0.997 CNN 0.996
+('cumulative', 'Japan') v1 0.963 TCN 0.961 CNN 0.959
+('cumulative', 'South Korea') v1 0.966 TCN 0.993 CNN 0.999
