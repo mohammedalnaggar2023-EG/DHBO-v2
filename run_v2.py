@@ -190,7 +190,6 @@ def main():
     p.add_argument("--v1", default="results_final")
     p.add_argument("--targets", nargs="+", default=["daily", "cumulative"])
     p.add_argument("--countries", nargs="+", default=list(D.COUNTRIES))
-    p.add_argument("--dengue-data", default=D.DENGUE_FILE)
     p.add_argument("--horizon", type=int, default=None)
     p.add_argument("--vmd-window", type=int, default=None)
     p.add_argument("--trials", type=int, default=30)
@@ -210,9 +209,9 @@ def main():
     out = Path(a.out)
     (out / "cache").mkdir(parents=True, exist_ok=True)
     (out / "config.json").write_text(json.dumps(vars(a), indent=2))
+    df = D.load_jhu(a.data)
     t0 = time.time()
     for target in a.targets:
-        df = D.load_data(target, a.dengue_data if target == "weekly" else a.data)
         for country in a.countries:
             ExperimentV2(df, country, target, a, out).run_v2(Path(a.v1))
     print(f"\nall runs done in {(time.time() - t0) / 60:.1f} min", flush=True)

@@ -32,30 +32,9 @@ COUNTRIES = {"India": "India", "Brazil": "Brazil", "Russia": "Russia", "USA": "U
 VALIDATION_COUNTRIES = {"France": "France", "Germany": "Germany", "Japan": "Japan", "South Korea": "Korea, South"}
 ALL_COUNTRIES = {**COUNTRIES, **VALIDATION_COUNTRIES}
 
-# Second disease: weekly dengue cases (OpenDengue V1.3, national temporal extract).
-# Fixed by a rule before any result was seen: in each WHO region with series of at
-# least 10 years (520 weeks) of contiguous weekly national reports, the two countries
-# with the highest mean weekly cases.
-DENGUE_COUNTRIES = {"Brazil": "BRAZIL", "Mexico": "MEXICO", "Malaysia": "MALAYSIA",
-                    "Laos": "LAO PEOPLE'S DEMOCRATIC REPUBLIC"}
-DENGUE_FILE = "data/dengue_weekly.csv"
-
-# Frequency-dependent settings: seasonal period, horizon, look-back choices, VMD window
+# Settings per target: seasonal period, horizon (days), look-back choices, VMD window (days)
 FREQ = {"daily": dict(s=7, H=7, L=(14, 21, 28), W=128),
-        "cumulative": dict(s=7, H=7, L=(14, 21, 28), W=128),
-        "weekly": dict(s=52, H=4, L=(26, 39, 52), W=104)}
-
-
-def load_dengue(path: str = DENGUE_FILE) -> pd.DataFrame:
-    """Weekly dengue cases, one row per country (display name), columns = week start."""
-    d = pd.read_csv(path, parse_dates=["week_start"])
-    return d.pivot(index="country", columns="week_start", values="cases").astype(float)
-
-
-def load_data(target: str, path: str | None = None) -> pd.DataFrame:
-    if target == "weekly":
-        return load_dengue(path or DENGUE_FILE)
-    return load_jhu(path or JHU_URL)
+        "cumulative": dict(s=7, H=7, L=(14, 21, 28), W=128)}
 
 
 # ---------------------------------------------------------------------------
@@ -78,8 +57,6 @@ def build_series(df: pd.DataFrame, country: str, target: str,
     Downward revisions in the cumulative count are removed with a running maximum,
     and the series starts on the first day with at least `min_cum` cases.
     """
-    if target == "weekly":  # dengue: weekly counts on the contiguous weekly record
-        return df.loc[country].dropna().rename(f"{country}_weekly")
     cum = df.loc[ALL_COUNTRIES.get(country, country)].cummax()
     cum = cum[cum >= min_cum]
     if target == "cumulative":

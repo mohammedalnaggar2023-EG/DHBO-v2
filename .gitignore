@@ -15,3 +15,11 @@ data/*.csv
 # OS files
 .DS_Store
 Thumbs.db
+
+# Outputs of re-running the scripts (the published results are in results/)
+/run_*/
+/out_*/
+/per_*/
+/figures/
+/nhits.json
+/compare_*.json

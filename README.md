@@ -42,7 +42,6 @@ The data are not included in this repository.
 | `run_v2.py` | DHBO-v2 (TCN corrector, default) or DHBO-v2-CNN (`--corrector cnn`), on the same origins |
 | `analyze_v2.py` | Summaries and tables for DHBO-v2 |
 | `compare_designs.py` | Comparison of DHBO-v1, DHBO-v2 and DHBO-v2-CNN |
-| `extra_baselines.py` | N-HiTS and the statistics-only online ensemble |
 | `make_tables.py` | Paper tables |
 | `DHBO_colab.ipynb` | Runs the whole study in Google Colab |
 | `robustness.py` | Robustness checks of Section 3.8: statistics-only online ensemble (`stat`), five single seeds (`seeds`), equally tuned ARIMA–LSTM (`arimalstm`) |
@@ -51,7 +50,23 @@ The data are not included in this repository.
 | `make_figures.py`, `figure_data.py` | Figures 1–5 and Supplementary Figure S1 |
 | `requirements.txt` | Fixed library versions |
 | `requirements_extra.txt` | Extra packages for `nhits.py` and `make_figures.py` |
-| `results/` | All result files used in the paper |
+| `results/` | All result files used in the paper (see below) |
+| `.gitignore` | Files Git should not track (raw data, caches, logs) |
+
+### Result files (`results/`)
+
+| Folder | Contents |
+|---|---|
+| `results_final/` | Baselines and DHBO-v1, development countries, daily and cumulative (`runs/`, `tables/`, `figures/`, `paper_tables.md`) |
+| `results_v2_daily/`, `results_v2_cumulative/` | DHBO-v2 (TCN), development countries |
+| `results_cnn_daily/`, `results_cnn_cumulative/` | DHBO-v2-CNN, development countries |
+| `val_v1_daily/`, `val_v1_cumulative/` | Baselines and DHBO-v1, held-out countries |
+| `val_tcn_daily/`, `val_tcn_cumulative/` | DHBO-v2 (TCN), held-out countries |
+| `val_cnn_daily/`, `val_cnn_cumulative/` | DHBO-v2-CNN, held-out countries |
+| `compare_*.txt`, `compare_*.json` | Output of `compare_designs.py` |
+
+Each `runs/<target>_<country>.json` holds all metrics, Diebold–Mariano tests, intervals, hyper-parameters,
+stacking weights and dates; each `.npz` holds the test-period forecasts and interval bands of every model.
 
 ## How to run
 
@@ -59,18 +74,27 @@ The data are not included in this repository.
 pip install -r requirements.txt
 
 # 1. Development countries (India, Brazil, Russia, USA)
-python run_experiments.py --out results                          # baselines + DHBO-v1
-python run_v2.py --v1 results --out results_v2                   # DHBO-v2 (TCN)
-python run_v2.py --v1 results --corrector cnn --out results_cnn  # DHBO-v2-CNN
+python run_experiments.py --data data/confirmed_global.csv --out run_v1                       # baselines + DHBO-v1
+python run_v2.py --data data/confirmed_global.csv --v1 run_v1 --out run_v2                    # DHBO-v2 (TCN)
+python run_v2.py --data data/confirmed_global.csv --v1 run_v1 --corrector cnn --out run_cnn   # DHBO-v2-CNN
+python analyze_v2.py 'run_v2/runs/*.json'                                                     # DHBO-v2 summaries
 
 # 2. Held-out countries (same code and settings)
-python run_experiments.py --countries France Germany Japan "South Korea" --out val_v1
-python run_v2.py --countries France Germany Japan "South Korea" --v1 val_v1 --out val_tcn
-python run_v2.py --countries France Germany Japan "South Korea" --v1 val_v1 --corrector cnn --out val_cnn
+python run_experiments.py --data data/confirmed_global.csv --countries France Germany Japan "South Korea" --out run_val_v1
+python run_v2.py --data data/confirmed_global.csv --countries France Germany Japan "South Korea" --v1 run_val_v1 --out run_val_tcn
+python run_v2.py --data data/confirmed_global.csv --countries France Germany Japan "South Korea" --v1 run_val_v1 --corrector cnn --out run_val_cnn
 
 # 3. Three-design comparison
-python compare_designs.py results_v2 results_cnn India,Brazil,Russia,USA results
-python compare_designs.py val_tcn val_cnn "France,Germany,Japan,South Korea" val_v1
+python compare_designs.py run_v2 run_cnn India,Brazil,Russia,USA run_v1
+python compare_designs.py run_val_tcn run_val_cnn "France,Germany,Japan,South Korea" run_val_v1
+```
+
+The same summaries can be produced directly from the published result files, without re-running anything:
+
+```bash
+python analyze_v2.py                                   # reads results/results_v2_*/runs/*.json
+python compare_designs.py results/results_v2 results/results_cnn India,Brazil,Russia,USA results/results_final
+python compare_designs.py results/val_tcn results/val_cnn "France,Germany,Japan,South Korea" results/val_v1
 ```
 
 ### Robustness checks and figures
@@ -88,6 +112,9 @@ python nhits.py held             # N-HiTS on development and held-out countries
 bash run_period.sh               # earlier test period (data ending 31 Dec 2021)
 python make_figures.py           # figures/ (PNG and TIFF, 1200 dpi)
 ```
+
+Outputs: `out_stat/stat_stack.json`, `out_seeds/seeds.json`, `out_arimalstm/arimalstm_tuned.json`,
+`nhits.json`, `per_v1_*` and `per_v2_*` (earlier period) and `figures/`.
 
 Paths can be changed with the environment variables `DHBO_DATA`, `DHBO_RESULTS`,
 `DHBO_CODE` and `DHBO_OUT`.
