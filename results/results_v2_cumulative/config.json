@@ -1,0 +1,23 @@
+{
+  "data": "data/confirmed_global.csv",
+  "v1": "results_final",
+  "targets": [
+    "cumulative"
+  ],
+  "countries": [
+    "India",
+    "Brazil",
+    "Russia",
+    "USA"
+  ],
+  "horizon": 7,
+  "vmd_window": 128,
+  "trials": 30,
+  "tcn_trials": 15,
+  "seeds": 3,
+  "window": 60,
+  "max_epochs": 200,
+  "patience": 20,
+  "out": "results_v2_cumulative",
+  "fast": false
+}
